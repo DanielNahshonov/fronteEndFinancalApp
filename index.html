@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Auth Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Registration and Login</h1>
+
+    <!-- Registration Form -->
+    <div>
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="email" id="registerEmail" placeholder="Email" required>
+            <input type="password" id="registerPassword" placeholder="Password" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <!-- Login Form -->
+    <div>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" id="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Button to fetch users -->
+    <div>
+        <h2>All Users</h2>
+        <button id="getUsersBtn">Get All Users</button>
+        <ul id="usersList"></ul> <!-- Empty list where users will be displayed -->
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

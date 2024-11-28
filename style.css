@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f9;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    margin: 20px auto;
+    max-width: 300px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+h2 {
+    text-align: center;
+}
+
+/* New styles for the user list section */
+#usersList {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0;
+    margin-top: 20px;
+}
+
+#usersList li {
+    background-color: white;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+#usersList li:hover {
+    background-color: #f1f1f1;
+}
