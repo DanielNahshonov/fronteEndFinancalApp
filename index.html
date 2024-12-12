@@ -36,6 +36,20 @@
         <ul id="usersList"></ul> <!-- Empty list where users will be displayed -->
     </div>
 
+    <div>
+        <h2>Stocks</h2>
+        <!-- Form for searching stock by symbol -->
+        <form id="stockSearchForm">
+            <input type="text" id="stockSymbol" placeholder="Enter Stock Symbol" required>
+            <button type="submit">Search Stock</button>
+        </form>
+        <div id="stockInfo"></div>
+
+        <!-- Button to fetch popular stocks -->
+        <button id="getPopularStocksBtn">Get Popular Stocks</button>
+        <ul id="popularStocksList"></ul>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
