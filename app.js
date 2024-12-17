@@ -1,5 +1,4 @@
-const apiUrl = 'http://127.0.0.1:5000';  // Замените на URL вашего Flask API
-
+const apiUrl = 'https://backendforfinanceapp-3ce922e8f420.herokuapp.com/';
 // Регистрация
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
