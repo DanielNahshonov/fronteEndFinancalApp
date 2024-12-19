@@ -1,4 +1,3 @@
-// src/App.tsx
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
@@ -9,7 +8,7 @@ import './index.css'; // убедитесь, что путь правильны�
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/fronteEndFinancalApp"> {/* Указываем базовый путь */}
       <div className="App">
         <Navbar />
         <div style={{ padding: '20px' }}>
