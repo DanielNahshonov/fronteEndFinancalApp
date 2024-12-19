@@ -5,6 +5,7 @@ import Login from './components/Login';
 import StockSearch from './components/StockSearch';
 import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';
+import './index.css'; // убедитесь, что путь правильный
 
 const App = () => {
   return (

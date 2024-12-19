@@ -24,7 +24,7 @@ ChartJS.register(
 );
 
 // Тип данных для одного элемента
-interface StockData {
+export interface StockData { // Сделаем экспорт именованным
   timestamp: string;
   close: number;
 }
@@ -40,7 +40,7 @@ const StockChart: React.FC<StockChartProps> = ({ data }) => {
     labels: data.map(entry => entry.timestamp), // Время
     datasets: [
       {
-        label: 'Цена закрытия',
+        label: 'close price',
         data: data.map(entry => entry.close), // Значения цены закрытия
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
