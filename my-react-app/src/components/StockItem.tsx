@@ -25,6 +25,7 @@ const StockItem: React.FC<StockItemProps> = ({ stock }) => {
             {stock.change >= 0 ? `+${stock.change.toFixed(2)}` : `${stock.change.toFixed(2)}`}
           </p>
         </div>
+        
       </div>
 
       {/* Правый блок с графиком */}
