@@ -1,46 +1,48 @@
 import React, { useState } from 'react';
-import StockItem from './StockItem'; // Компонент для отображения данных и графика акции
-
-// Тип для данных, получаемых при поиске акции
-interface StockData {
-  symbol: string;
-  companyName: string;
-  price: number;
-  change: number;
-  data: { timestamp: string; close: number }[]; // Примерные данные для графика
-}
+import StockItem from './StockItem'; // Компонент для отображения данных об акции
+import { searchStock } from '../services/api'; // Функция для отправки запросов к серверу
 
 const StockSearch: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [stocks, setStocks] = useState<StockData[]>([]);
+  const [searchTerm, setSearchTerm] = useState(''); // Для хранения введенного символа
+  const [stocks, setStocks] = useState<any[]>([]); // Для хранения массива данных акций
+  const [loading, setLoading] = useState(false); // Для отображения состояния загрузки
+  const [error, setError] = useState<string | null>(null); // Для отображения ошибок
 
-  // Пример данных, которые можно получить по запросу (это будет имитация запроса)
-  const fetchStockData = (symbol: string) => {
-    return {
-      symbol,
-      companyName: `${symbol} Inc.`,
-      price: Math.random() * 100 + 100, // Генерируем случайную цену для примера
-      change: Math.random() * 10 - 5, // Генерируем случайное изменение цены
-      data: [
-        { timestamp: '2024-12-19 10:00', close: Math.random() * 100 + 150 },
-        { timestamp: '2024-12-19 11:00', close: Math.random() * 100 + 150 },
-        { timestamp: '2024-12-19 12:00', close: Math.random() * 100 + 150 },
-      ], // Пример данных для графика
-    };
-  };
-
-  // Обработка ввода
-  const handleSearch = (e: React.FormEvent) => {
+  // Обработчик поиска
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!searchTerm) return;
+    if (!searchTerm.trim()) return; // Если строка пустая, ничего не делаем
 
-    // Имитируем получение данных о акции
-    const newStock = fetchStockData(searchTerm.toUpperCase());
-    setStocks(prevStocks => [...prevStocks, newStock]);
+    setLoading(true); // Начинаем загрузку
+    setError(null); // Очищаем ошибки
 
-    // Очищаем поле ввода
-    setSearchTerm('');
+    try {
+      // Отправляем запрос к серверу
+      const response = await searchStock(searchTerm.toUpperCase());
+      const data = response.data;
+
+      // Преобразуем данные в нужный формат
+      const stock = {
+        symbol: data['Meta Data']['2. Symbol'],
+        companyName: "Example Company", // Можно заменить на реальные данные
+        price: parseFloat(Object.values(data['Time Series (5min)'])[0]['4. close']),
+        change: 0, // Пока оставляем 0, можно рассчитать на основе данных
+        data: Object.entries(data['Time Series (5min)']).map(([time, values]: [string, any]) => ({
+          time,
+          price: parseFloat(values['4. close']),
+        })),
+      };
+
+      // Добавляем новый объект в массив
+      setStocks((prevStocks) => [...prevStocks, stock]);
+      setSearchTerm(''); // Очищаем поле ввода
+    } catch (err: any) {
+      // Обрабатываем ошибку
+      setError('Failed to fetch stock data. Please try again.');
+    } finally {
+      setLoading(false); // Завершаем загрузку
+    }
   };
 
   return (
@@ -50,7 +52,7 @@ const StockSearch: React.FC = () => {
         <input
           type="text"
           value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Enter stock symbol (e.g. AAPL)"
           className="p-2 border rounded-l-lg flex-1"
         />
@@ -59,9 +61,14 @@ const StockSearch: React.FC = () => {
         </button>
       </form>
 
-      <div>
-        {stocks.map((stock, index) => (
-          <StockItem key={index} stock={stock} />
+      {/* Отображение загрузки или ошибки */}
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+
+      {/* Отображение списка акций */}
+      <div className="space-y-4">
+        {stocks.map((stock) => (
+          <StockItem apiData={stock} />
         ))}
       </div>
     </div>

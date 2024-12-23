@@ -24,9 +24,9 @@ ChartJS.register(
 );
 
 // Тип данных для одного элемента
-export interface StockData { // Сделаем экспорт именованным
-  timestamp: string;
-  close: number;
+export interface StockData {
+  time: string; // Временная метка
+  price: number; // Цена закрытия
 }
 
 // Тип пропсов компонента StockChart
@@ -37,11 +37,11 @@ interface StockChartProps {
 const StockChart: React.FC<StockChartProps> = ({ data }) => {
   // Преобразуем данные для графика
   const chartData = {
-    labels: data.map(entry => entry.timestamp), // Время
+    labels: data.map(entry => entry.time), // Используем time вместо timestamp
     datasets: [
       {
-        label: 'close price',
-        data: data.map(entry => entry.close), // Значения цены закрытия
+        label: 'Close Price',
+        data: data.map(entry => entry.price), // Используем price вместо close
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         fill: true,
@@ -59,7 +59,7 @@ const StockChart: React.FC<StockChartProps> = ({ data }) => {
       tooltip: {
         callbacks: {
           label: function (tooltipItem: any) {
-            return `$${tooltipItem.raw.toFixed(2)}`;
+            return `$${tooltipItem.raw}`;
           },
         },
       },
