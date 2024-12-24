@@ -1,7 +1,7 @@
-// src/services/api.ts
-import axios from 'axios';
+import axios from "axios";
 
-const apiUrl = 'https://backendforfinanceapp-3ce922e8f420.herokuapp.com/';
+// const apiUrl = 'https://backendforfinanceapp-3ce922e8f420.herokuapp.com/';
+const apiUrl = "http://127.0.0.1:5000";
 
 // Аутентификация
 export const register = (email: string, password: string) => {
@@ -32,4 +32,37 @@ export const getStockNews = (keywords: string) => {
 
 export const getTrendingNews = () => {
   return axios.get(`${apiUrl}/stocks/news/trending`);
+};
+
+// Портфель
+export const addToPortfolio = (
+  data: { symbol: string; quantity: number; buy_price: number },
+  token: string
+) => {
+  return axios.post(`${apiUrl}/portfolio/add`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const getPortfolio = (token: string) => {
+  return axios.get(`${apiUrl}/portfolio`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
+export const sellFromPortfolio = (
+  token: string,
+  symbol: string,
+  quantity: number,
+  sellPrice: number
+) => {
+  return axios.post(
+    `${apiUrl}/portfolio/sell`,
+    { symbol, quantity, sell_price: sellPrice },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
 };

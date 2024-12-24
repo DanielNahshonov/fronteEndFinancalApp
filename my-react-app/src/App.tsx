@@ -5,6 +5,7 @@ import StockSearch from './components/StockSearch';
 import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';
 import './index.css'; // убедитесь, что путь правильный
+import Portfolio from './components/Portfolio';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/stock-search" element={<StockSearch />} />
+            <Route path="/portfolio" element={<Portfolio />} /> {/* Добавляем маршрут */}
           </Routes>
         </div>
       </div>
